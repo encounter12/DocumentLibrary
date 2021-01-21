@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DocumentLibrary.Data\DocumentLibrary.Data.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Services\DocumentLibrary.Services.csproj" />
+    </ItemGroup>
+
+</Project>

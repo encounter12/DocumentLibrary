@@ -10,4 +10,11 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DocumentLibrary.DI\DocumentLibrary.DI.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.DTO\DocumentLibrary.DTO.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Infrastructure\DocumentLibrary.Infrastructure.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Services\DocumentLibrary.Services.csproj" />
+    </ItemGroup>
+
 </Project>
