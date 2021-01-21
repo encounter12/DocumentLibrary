@@ -1,0 +1,137 @@
+Document Library Web Application
+
+1. Create GitHub repo
+
+2. Create scaffolded application
+
+3. Create layer projects (Data, Services, APIs (API.Admin, API.Public - put them in folder APIs), Infrastructure)
+
+4. Consider Database design (tables, constraints)
+
+4.1. Tables: 
+
+- Book
+ * BookID
+ * Name
+ * Genre
+ * Description
+ * AvailabilityDate
+ * DownloadLink (relative)
+ * StoragePath (optional)
+
+- Keywords
+
+4.2. Constraints
+
+5. Create Entities
+
+6. Create DbContext with Entity DbSets
+
+7. Implement Auditing (including Soft-delete)
+
+7. Set Code First migrations
+
+8. Run Code First migrations and create Database
+
+9. Add Db Seed and Run seed
+
+10. Add Service layer and Dependency Injection
+
+11. Add CRUD Controllers and actions for Admin and Public APIs
+
+12. Add authentication - JWT Token
+
+13. Implement File upload - first in the application App_Start Folder
+
+14. Implement File upload in Azure Storage
+
+15. Read about Vue.js
+
+16. Add scaffolded Vue.js starter application
+
+17. Create front-end pages
+
+-----------------------------------
+
+18. Implement Full-text search functionality 
+ - Consider using Azure Cognitive Search for extracting text from book pdf
+
+18.1. Full text search in SQL Server
+
+SQL Server Full-Text Search and EF Core
+https://www.bricelam.net/2020/08/08/mssql-freetext-and-efcore.html
+
+Full-Text Search
+https://docs.microsoft.com/en-us/sql/relational-databases/search/full-text-search?view=sql-server-ver15
+
+Get Started with Full-Text Search
+https://docs.microsoft.com/en-us/sql/relational-databases/search/get-started-with-full-text-search?view=sql-server-ver15
+
+Query with Full-Text Search
+https://docs.microsoft.com/en-us/sql/relational-databases/search/query-with-full-text-search?view=sql-server-ver15
+
+Hands on Full-Text Search in SQL Server
+https://www.sqlshack.com/hands-full-text-search-sql-server/
+
+Full-Text Search is now available in Azure SQL Database (GA)
+https://azure.microsoft.com/en-us/blog/full-text-search-is-now-available-for-preview-in-azure-sql-database/
+
+
+----------
+
+18.2. Extract and index book content using Azure Cognitive Search
+
+How to configure a blob indexer in Azure Cognitive Search
+https://docs.microsoft.com/en-us/azure/search/search-howto-indexing-azure-blob-storage
+
+Search over Azure Blob storage content
+https://docs.microsoft.com/en-us/azure/search/search-blob-storage-integration
+
+Indexers in Azure Cognitive Search
+https://docs.microsoft.com/en-us/azure/search/search-indexer-overview
+
+What is Azure Cognitive Search?
+https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search
+
+Use AI to understand Blob storage data
+https://docs.microsoft.com/en-us/azure/search/search-blob-ai-integration
+
+Search over Azure Blob storage content
+https://docs.microsoft.com/en-us/azure/search/search-blob-storage-integration
+
+Azure Search: How to Search for Text in Documents and Images
+https://cloudacademy.com/blog/azure-search-how-to-search-for-text-in-documents-and-images/
+
+Searching document text at scale using Azure Cognitive Search
+https://benalexkeen.com/searching-document-text-at-scale-using-azure-cognitive-search/
+
+Azure blob document - Full text search
+https://stackoverflow.com/questions/28540032/azure-blob-document-full-text-search
+
+Indexer operations (Azure Cognitive Search REST API)
+https://docs.microsoft.com/en-us/rest/api/searchservice/Indexer-operations
+
+Optical Character Recognition (OCR)
+https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/concept-recognizing-text
+
+Azure Free:
+https://azure.microsoft.com/en-us/free/
+
+
+----------------
+
+How to process and extract information from images in AI enrichment scenarios
+https://docs.microsoft.com/en-us/azure/search/cognitive-search-concept-image-scenarios
+
+Leverage OCR to full text search your images within Azure Search
+https://azure.microsoft.com/sv-se/blog/how-to-leverage-ocr-to-full-text-search-your-images-within-azure-search/
+
+Form Recognizer documentation
+https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/
+
+QnA Maker
+https://azure.microsoft.com/en-us/services/cognitive-services/qna-maker/
+
+-----------------
+
+19. Host the website on Azure
