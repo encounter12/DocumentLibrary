@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DocumentLibrary.API.Admin.Models;
+using DocumentLibrary.Data.Entities;
+using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Book = DocumentLibrary.Data.Entities.Book;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.API.Admin.Controllers
 {
@@ -8,26 +13,27 @@ namespace DocumentLibrary.API.Admin.Controllers
     [Route("Admin/[controller]")]
     public class BooksController : ControllerBase
     {
-        public BooksController()
+        private readonly IBookService _bookService;
+        
+        public BooksController(IBookService bookService)
         {
+            _bookService = bookService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("/Books")]
+        public async Task<ActionResult<Book>> GetBooksAsync()
         {
-            var books = new List<Book>
-            {
-                new Book
-                {
-                    Name = "Foundation"
-                },
-                new Book
-                {
-                    Name = "The Call of Ktulu"
-                }
-            };
-            
+            var books = await _bookService.GetBooksAsync();
+
             return Ok(books);
+        }
+        
+        [HttpGet("/Pencils")]
+        public IAsyncEnumerable<Pencil> GetPencilsAsync()
+        {
+            var books = _bookService.GetPencilsAsAsyncEnumerable();
+
+            return books;
         }
     }
 }
