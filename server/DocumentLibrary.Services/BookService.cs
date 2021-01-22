@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Services.Contracts;
-using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.Services
 {

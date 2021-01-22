@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocumentLibrary.API.Admin.Models;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Book = DocumentLibrary.Data.Entities.Book;
-using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.API.Admin.Controllers
 {
