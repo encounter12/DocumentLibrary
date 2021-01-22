@@ -18,20 +18,20 @@ namespace DocumentLibrary.API.Admin.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet("/Books")]
-        public async Task<ActionResult<Book>> GetBooksAsync()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksAsync()
         {
             var books = await _bookService.GetBooksAsync();
 
             return Ok(books);
         }
         
-        [HttpGet("/Pencils")]
+        [HttpGet("Pencils")]
         public IAsyncEnumerable<Pencil> GetPencilsAsync()
         {
-            var books = _bookService.GetPencilsAsAsyncEnumerable();
+            var pencils =  _bookService.GetPencilsAsAsyncEnumerable();
 
-            return books;
+            return pencils;
         }
     }
 }
