@@ -11,7 +11,7 @@ Document Library Web Application
 4.1. Tables: 
 
 - Book
- * BookID
+ * ID
  * Name
  * Genre
  * Description
@@ -135,3 +135,35 @@ https://azure.microsoft.com/en-us/services/cognitive-services/qna-maker/
 -----------------
 
 19. Host the website on Azure
+
+
+
+
+--------------------------------------------------------
+
+SQL Server:
+
+CREATE LOGIN doclibrary
+WITH PASSWORD = 'Qwerty123';
+
+EXEC master..sp_addsrvrolemember @loginame = N'doclibrary', @rolename = N'dbcreator'
+GO
+
+----------------------------------------------------------
+
+Open Terminal in the Data Layer folder and run:
+
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+-----------------------------------------------------------
+
+Command for dropping Db:
+
+ALTER DATABASE DocumentLibrary SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+
+DROP DATABASE DocumentLibrary
+GO
