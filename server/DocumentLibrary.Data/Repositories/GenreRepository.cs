@@ -9,28 +9,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.Data.Repositories
 {
-    public class BookRepository : GenericRepository<Book>, IBookRepository
+    public class GenreRepository : GenericRepository<Genre>, IGenreRepository
     {
         private readonly DocumentLibraryContext _context;
 
-        public BookRepository(DocumentLibraryContext context) : base(context)
+        public GenreRepository(DocumentLibraryContext context) : base(context)
         {
             _context = context;
         }
-
-        public async Task<List<BookDto>> GetBooksAsync()
+        
+        public async Task<List<GenreDto>> GetGenresAsync()
         {
-            var documents = await this
+            var genres = await this
                 .All()
-                .Select(b => new BookDto
+                .Select(b => new GenreDto
                 {
                     Id = b.Id,
-                    Name = b.Name,
-                    Genre = b.Genre.Name
+                    Name = b.Name
                 })
                 .ToListAsync();
 
-            return documents;
+            return genres;
         }
     }
 }

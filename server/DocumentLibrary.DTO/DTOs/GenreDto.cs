@@ -1,11 +1,9 @@
 namespace DocumentLibrary.DTO.DTOs
 {
-    public class BookDto
+    public class GenreDto
     {
         public long Id { get; set; }
         
         public string Name { get; set; }
-        
-        public string Genre { get; set; }
     }
 }

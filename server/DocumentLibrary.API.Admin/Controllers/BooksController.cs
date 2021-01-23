@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocumentLibrary.Data.Entities;
+using DocumentLibrary.DTO.DTOs;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,16 +12,18 @@ namespace DocumentLibrary.API.Admin.Controllers
     {
         private readonly IBookService _bookService;
         
-        public BooksController(IBookService bookService)
+        private readonly IGenreService _genreService;
+        
+        public BooksController(IBookService bookService, IGenreService genreService)
         {
             _bookService = bookService;
+            _genreService = genreService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBooks()
+        public async Task<ActionResult> GetBooks()
         {
-            var books = await _bookService.GetBooksAsync();
-
+            List<BookDto> books = await _bookService.GetBooksAsync();
             return Ok(books);
         }
     }

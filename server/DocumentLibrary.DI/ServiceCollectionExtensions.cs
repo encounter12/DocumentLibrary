@@ -24,6 +24,7 @@ namespace DocumentLibrary.DI
         private static void BindServices(IServiceCollection services)
         {
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IGenreService, GenreService>();
         }
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)
@@ -36,6 +37,7 @@ namespace DocumentLibrary.DI
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
         }
     }
 }
