@@ -1,33 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocumentLibrary.Data.Entities;
+using DocumentLibrary.Data.Repositories.Contracts;
+using DocumentLibrary.DTO.DTOs;
 using DocumentLibrary.Services.Contracts;
 
 namespace DocumentLibrary.Services
 {
     public class BookService : IBookService
     {
-        public async Task<IEnumerable<Book>> GetBooksAsync()
+        private readonly IBookRepository _bookRepository;
+        public BookService(IBookRepository bookRepository)
         {
-            // in repository method you should use: .ToListAsync()
-            await Task.Delay(1000);
-            IEnumerable<Book> books = new List<Book>
-            {
-                new Book
-                {
-                    Name = "John Doe"
-                }
-            };
-
-            return books;
+            _bookRepository = bookRepository;
         }
         
-        public async IAsyncEnumerable<Pencil> GetPencilsAsAsyncEnumerable()
-        {
-            //in repository method you should use: .AsAsyncEnumerable()
-            yield return new Pencil() { Brand = "American Best Pencil"};
-            await Task.Delay(1000);
-            yield return new Pencil() { Brand = "Bulgarian Best Pencil"};
-        }
+        public async Task<List<BookDto>> GetBooksAsync() 
+            => await _bookRepository.GetBooksAsync();
     }
 }

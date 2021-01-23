@@ -1,10 +1,11 @@
 using DocumentLibrary.Data.Context;
+using DocumentLibrary.Data.Repositories;
+using DocumentLibrary.Data.Repositories.Contracts;
 using DocumentLibrary.DTO;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace DocumentLibrary.DI
 {
@@ -15,6 +16,7 @@ namespace DocumentLibrary.DI
         {
             BindServices(services);
             BindDbContexts(services, appData);
+            BindRepositories(services);
 
             return services;
         }
@@ -28,6 +30,12 @@ namespace DocumentLibrary.DI
         {
             services.AddDbContext<DocumentLibraryContext>(options => 
                 options.UseSqlServer(appData.DocumentLibraryConnectionString));
+        }
+        
+        private static void BindRepositories(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IBookRepository, BookRepository>();
         }
     }
 }

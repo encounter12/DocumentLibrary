@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DocumentLibrary.DTO.DTOs;
 
-namespace DocumentLibrary.Services.Contracts
+namespace DocumentLibrary.Data.Repositories.Contracts
 {
-    public interface IBookService
+    public interface IBookRepository
     {
         Task<List<BookDto>> GetBooksAsync();
     }

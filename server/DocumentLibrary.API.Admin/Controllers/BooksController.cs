@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Book = DocumentLibrary.Data.Entities.Book;
 
 namespace DocumentLibrary.API.Admin.Controllers
 {
@@ -19,27 +18,11 @@ namespace DocumentLibrary.API.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooksAsync()
+        public async Task<ActionResult<List<Book>>> GetBooks()
         {
             var books = await _bookService.GetBooksAsync();
 
             return Ok(books);
-        }
-        
-        [HttpGet("Pencils")]
-        public IAsyncEnumerable<Pencil> GetPencilsAsync()
-        {
-            var pencils =  _bookService.GetPencilsAsAsyncEnumerable();
-
-            return pencils;
-        }
-        
-        [HttpGet("PencilsV2")]
-        public ActionResult<IAsyncEnumerable<Pencil>> GetPencilsAsyncV2()
-        {
-            var pencils =  _bookService.GetPencilsAsAsyncEnumerable();
-
-            return Ok(pencils);
         }
     }
 }
