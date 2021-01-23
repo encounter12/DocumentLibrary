@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using DocumentLibrary.DI;
+using DocumentLibrary.DTO;
 
 namespace DocumentLibrary.API.Admin
 {
@@ -17,11 +18,18 @@ namespace DocumentLibrary.API.Admin
 
         private IConfiguration Configuration { get; }
         
-        public static void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            services.AddDependencyInjectionBindings();
+            var appData = new AppData()
+            {
+                DocumentLibraryConnectionString = Configuration.GetConnectionString("DocumentLibraryConnection")
+            };
+            
+            services.AddDependencyInjectionBindings(appData);
+            
+            services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddSwaggerGen(c =>
             {
