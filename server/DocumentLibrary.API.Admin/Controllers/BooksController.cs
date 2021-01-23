@@ -33,5 +33,13 @@ namespace DocumentLibrary.API.Admin.Controllers
 
             return pencils;
         }
+        
+        [HttpGet("PencilsV2")]
+        public ActionResult<IAsyncEnumerable<Pencil>> GetPencilsAsyncV2()
+        {
+            var pencils =  _bookService.GetPencilsAsAsyncEnumerable();
+
+            return Ok(pencils);
+        }
     }
 }
