@@ -11,6 +11,9 @@ namespace DocumentLibrary.API.Admin.ViewModels
         
         public long GenreId { get; set; }
         
+        [MaxLength(4000)]
+        public string Description { get; set; }
+        
         public List<string> Keywords { get; set; }
         
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

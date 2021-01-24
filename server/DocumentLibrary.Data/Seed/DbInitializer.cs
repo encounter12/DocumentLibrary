@@ -73,7 +73,6 @@ namespace DocumentLibrary.Data.Seed
                 new Book
                 {
                     Name = "Gone with the wind",
-                    
                     Genre = fictionGenre,
                     Keywords = new List<Keyword>
                     {
