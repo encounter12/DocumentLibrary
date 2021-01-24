@@ -12,6 +12,7 @@ namespace DocumentLibrary.Services
     {
         private readonly IBookRepository _bookRepository;
         private readonly IGenreRepository _genreRepository;
+        
         public BookService(IBookRepository bookRepository, IGenreRepository genreRepository)
         {
             _bookRepository = bookRepository;
