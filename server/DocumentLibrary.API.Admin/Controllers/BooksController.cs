@@ -33,9 +33,17 @@ namespace DocumentLibrary.API.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> GetBooks()
         {
-            List<BookListDto> books = await _bookService.GetBooksAsync();
-            var booksListViewModel = _mapper.Map<List<BookListViewModel>>(books);
-            return Ok(booksListViewModel);
+            try
+            {
+                List<BookListDto> books = await _bookService.GetBooksAsync();
+                var booksListViewModel = _mapper.Map<List<BookListViewModel>>(books);
+                
+                return Ok(booksListViewModel);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         [HttpPost]

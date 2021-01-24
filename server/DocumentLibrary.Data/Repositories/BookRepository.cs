@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Data.Repositories.Contracts;
 using DocumentLibrary.DTO.DTOs;
+using DocumentLibrary.Infrastructure.DateTimeHelpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.Data.Repositories
@@ -14,18 +16,29 @@ namespace DocumentLibrary.Data.Repositories
     {
         private readonly DocumentLibraryContext _context;
         private readonly IMapper _mapper;
-
-        public BookRepository(DocumentLibraryContext context, IMapper mapper): base(context)
+        private readonly IDateTimeHelper _dateTimeHelper;
+        
+        public BookRepository(DocumentLibraryContext context, IMapper mapper, IDateTimeHelper dateTimeHelper)
+            : base(context)
         {
             _context = context;
             _mapper = mapper;
+            _dateTimeHelper = dateTimeHelper;
         }
 
         public async Task<List<BookListDto>> GetBooksAsync()
         {
+            DateTime dateTimeNow = _dateTimeHelper.GetDateTimeNow();
+            
             var documents = await this
                 .All()
-                .ProjectTo<BookListDto>(_mapper.ConfigurationProvider)
+                .Select(b => new BookListDto
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre.Name,
+                    IsCheckedOut = b.AvailabilityDate > dateTimeNow
+                })
                 .ToListAsync();
 
             return documents;

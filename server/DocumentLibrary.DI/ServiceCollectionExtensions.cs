@@ -5,6 +5,7 @@ using DocumentLibrary.DTO;
 using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
+using DocumentLibrary.Infrastructure.DateTimeHelpers;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,7 @@ namespace DocumentLibrary.DI
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDateTimeHelper, DateTimeHelper>();
         }
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)
