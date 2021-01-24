@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DocumentLibrary.Data.Entities;
 using DocumentLibrary.DTO.DTOs;
 
 namespace DocumentLibrary.Data.Repositories.Contracts
 {
-    public interface IBookRepository
+    public interface IBookRepository : IGenericRepository<Book>
     {
-        Task<List<BookDto>> GetBooksAsync();
+        Task<List<BookListDto>> GetBooksAsync();
+
+        Task AddBookAsync(BookPostDto bookPostDto, Genre genre);
     }
 }

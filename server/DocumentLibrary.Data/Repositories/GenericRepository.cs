@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,15 @@ namespace DocumentLibrary.Data.Repositories
 
         public virtual T GetById(string id)
             => DbSet.Find(id);
+        
+        public virtual async Task<T> GetByIdAsync(long id)
+            => await DbSet.FindAsync(id);
 
         public virtual void Add(T entity)
             => DbSet.Add(entity);
+        
+        public virtual async Task AddAsync(T entity)
+            => await DbSet.AddAsync(entity);
 
         public virtual void AddRange(IEnumerable<T> entities)
             => DbSet.AddRange(entities);
@@ -53,8 +60,8 @@ namespace DocumentLibrary.Data.Repositories
         public void SaveChanges()
             => _context.SaveChanges();
         
-        public void SaveChangesAsync()
-            => _context.SaveChangesAsync();
+        public async Task SaveChangesAsync()
+            => await _context.SaveChangesAsync();
 
         public void ChangeEntityState(T entity, EntityState state)
         {

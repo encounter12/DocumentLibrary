@@ -1,6 +1,6 @@
 namespace DocumentLibrary.DTO.DTOs
 {
-    public class BookDto
+    public class BookListDto
     {
         public long Id { get; set; }
         

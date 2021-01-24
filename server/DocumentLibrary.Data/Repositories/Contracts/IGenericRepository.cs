@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DocumentLibrary.Data.Repositories.Contracts
 {
@@ -16,7 +17,11 @@ namespace DocumentLibrary.Data.Repositories.Contracts
 
         T GetById(string id);
 
+        Task<T> GetByIdAsync(long id);
+        
         void Add(T entity);
+
+        Task AddAsync(T entity);
 
         void AddRange(IEnumerable<T> entities);
 
@@ -25,5 +30,7 @@ namespace DocumentLibrary.Data.Repositories.Contracts
         void Delete(T entity);
 
         void SaveChanges();
+
+        Task SaveChangesAsync();
     }
 }

@@ -18,11 +18,11 @@ namespace DocumentLibrary.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<BookDto>> GetBooksAsync()
+        public async Task<List<BookListDto>> GetBooksAsync()
         {
             var documents = await this
                 .All()
-                .Select(b => new BookDto
+                .Select(b => new BookListDto
                 {
                     Id = b.Id,
                     Name = b.Name,
@@ -31,6 +31,22 @@ namespace DocumentLibrary.Data.Repositories
                 .ToListAsync();
 
             return documents;
+        }
+
+        public async Task AddBookAsync(BookPostDto bookPostDto, Genre genre)
+        {
+            var book = new Book
+            {
+                Name = bookPostDto.Name,
+                Description = bookPostDto.Description,
+                Genre = genre,
+                Keywords = bookPostDto.Keywords.Select(x => new Keyword
+                {
+                    Name = x
+                }).ToList()
+            };
+            
+            await AddAsync(book);
         }
     }
 }

@@ -6,6 +6,8 @@ namespace DocumentLibrary.Services.Contracts
 {
     public interface IBookService
     {
-        Task<List<BookDto>> GetBooksAsync();
+        Task<List<BookListDto>> GetBooksAsync();
+
+        Task AddBookAsync(BookPostDto bookPostDto);
     }
 }
