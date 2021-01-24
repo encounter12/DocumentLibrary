@@ -21,7 +21,7 @@ namespace DocumentLibrary.Services
         public async Task<List<BookListDto>> GetBooksAsync() 
             => await _bookRepository.GetBooksAsync();
 
-        public async Task AddBookAsync(BookPostDto bookPostDto)
+        public async Task<long> AddBookAsync(BookPostDto bookPostDto)
         {
             Genre genre = await _genreRepository.GetByIdAsync(bookPostDto.GenreId);
 
@@ -30,8 +30,10 @@ namespace DocumentLibrary.Services
                 throw new Exception($"Genre with Id: {bookPostDto.GenreId} could not be found");
             }
             
-            await _bookRepository.AddBookAsync(bookPostDto, genre);
+            Book book = await _bookRepository.AddBookAsync(bookPostDto, genre);
             await _bookRepository.SaveChangesAsync();
+
+            return book.Id;
         }
     }
 }

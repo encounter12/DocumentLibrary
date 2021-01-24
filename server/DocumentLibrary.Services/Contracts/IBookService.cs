@@ -8,6 +8,6 @@ namespace DocumentLibrary.Services.Contracts
     {
         Task<List<BookListDto>> GetBooksAsync();
 
-        Task AddBookAsync(BookPostDto bookPostDto);
+        Task<long> AddBookAsync(BookPostDto bookPostDto);
     }
 }

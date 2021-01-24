@@ -41,12 +41,12 @@ namespace DocumentLibrary.Infrastructure.AspNetHelpers.UserService
                 throw new Exception("The Http context is null");
             }
 
-            //string username = httpContext.User?.Identity?.Name;
+            // string username = httpContext.User?.Identity?.Name;
             string username = "no.auth.user";
             
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new Exception("The current user username is null, empty or whitespace");
+                throw new Exception("The current user username is null, empty or whitespace.");
             }
 
             return username;

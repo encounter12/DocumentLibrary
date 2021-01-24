@@ -31,12 +31,13 @@ namespace DocumentLibrary.Data.Repositories
             return documents;
         }
 
-        public async Task AddBookAsync(BookPostDto bookPostDto, Genre genre)
+        public async Task<Book> AddBookAsync(BookPostDto bookPostDto, Genre genre)
         {
             var book = _mapper.Map<Book>(bookPostDto);
             book.Genre = genre;
             
             await AddAsync(book);
+            return book;
         }
     }
 }

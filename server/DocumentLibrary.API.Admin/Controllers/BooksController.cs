@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Admin.ViewModels;
@@ -45,10 +46,20 @@ namespace DocumentLibrary.API.Admin.Controllers
                 List<string> errors = _modelStateErrorHandler.GetErrors(ModelState);
                 return BadRequest(errors);
             }
+
+            long bookId;
             
-            var bookPostDto = _mapper.Map<BookPostDto>(bookPostModel);
-            await _bookService.AddBookAsync(bookPostDto);
-            return Ok();
+            try
+            {
+                var bookPostDto = _mapper.Map<BookPostDto>(bookPostModel);
+                bookId = await _bookService.AddBookAsync(bookPostDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+            return Ok(bookId);
         }
     }
 }

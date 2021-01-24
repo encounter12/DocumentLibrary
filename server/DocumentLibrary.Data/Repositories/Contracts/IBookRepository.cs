@@ -9,6 +9,6 @@ namespace DocumentLibrary.Data.Repositories.Contracts
     {
         Task<List<BookListDto>> GetBooksAsync();
 
-        Task AddBookAsync(BookPostDto bookPostDto, Genre genre);
+        Task<Book> AddBookAsync(BookPostDto bookPostDto, Genre genre);
     }
 }
