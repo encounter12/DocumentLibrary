@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DocumentLibrary.DI\DocumentLibrary.DI.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.DTO\DocumentLibrary.DTO.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Infrastructure\DocumentLibrary.Infrastructure.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Services\DocumentLibrary.Services.csproj" />
+    </ItemGroup>
+
+</Project>
