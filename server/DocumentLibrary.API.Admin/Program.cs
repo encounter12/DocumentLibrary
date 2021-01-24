@@ -1,10 +1,8 @@
 using System;
-using System.IO;
-using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Seed;
+using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace DocumentLibrary.API.Admin
@@ -19,16 +17,10 @@ namespace DocumentLibrary.API.Admin
                 .AddJsonFile("Configuration/appsettings-shared.json", optional: false, reloadOnChange: false)
                 .Build();
             
-            var host = CreateHostBuilder(args, configuration).Build();
-
-            using (var scope = host.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<DocumentLibraryContext>();
-
-                DbInitializer.Seed(dbContext);
-            }
-
-            host.Run();
+            DbInitializer.Seed(
+                configuration, "DocumentLibraryConnection", new UserServiceStartupTime());
+            
+            CreateHostBuilder(args, configuration).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration config) =>

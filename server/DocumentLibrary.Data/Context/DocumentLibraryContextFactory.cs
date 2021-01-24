@@ -1,5 +1,6 @@
 using System;
-using Microsoft.EntityFrameworkCore;
+using DocumentLibrary.Data.Seed;
+using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
@@ -14,15 +15,11 @@ namespace DocumentLibrary.Data.Context
                 .AddJsonFile("Configuration/appsettings-shared.json", optional: true, reloadOnChange: true)
                 .AddCommandLine(args)
                 .Build();
-            
-            string documentLibraryConnectionString = config.GetConnectionString("DocumentLibraryConnection");
-            
-            var optionsBuilder = new DbContextOptionsBuilder<DocumentLibraryContext>();
 
-            optionsBuilder
-                .UseSqlServer(documentLibraryConnectionString);
+            DocumentLibraryContext dbContext = DbInitializer.BuildDbContext(
+                config, "DocumentLibraryConnection", new UserServiceDesignTime());
 
-            return new DocumentLibraryContext(optionsBuilder.Options);
+            return dbContext;
         }
     }
 }

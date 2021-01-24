@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Admin.ViewModels;
 using DocumentLibrary.DTO.DTOs;
-using DocumentLibrary.Infrastructure.AspNetHelpers;
+using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 

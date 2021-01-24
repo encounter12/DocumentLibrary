@@ -15,7 +15,7 @@ namespace DocumentLibrary.Data.Repositories
         private readonly DocumentLibraryContext _context;
         private readonly IMapper _mapper;
 
-        public BookRepository(DocumentLibraryContext context, IMapper mapper) : base(context)
+        public BookRepository(DocumentLibraryContext context, IMapper mapper): base(context)
         {
             _context = context;
             _mapper = mapper;

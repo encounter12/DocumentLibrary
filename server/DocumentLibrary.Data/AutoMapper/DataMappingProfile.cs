@@ -19,6 +19,8 @@ namespace DocumentLibrary.Data.AutoMapper
                 {
                     Name = x
                 })));
+
+            CreateMap<Genre, GenreDto>();
         }
     }
 }

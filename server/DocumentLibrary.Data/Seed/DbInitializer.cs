@@ -2,16 +2,39 @@ using System.Collections.Generic;
 using System.Linq;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Entities;
+using DocumentLibrary.Infrastructure.AspNetHelpers;
+using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DocumentLibrary.Data.Seed
 {
     public static class DbInitializer
     {
-        public static void Seed(DocumentLibraryContext context)
+        public static DocumentLibraryContext BuildDbContext(
+            IConfigurationRoot config, string connectionStringName, IUserService userService)
         {
-            context.Database.EnsureCreated();
+            string documentLibraryConnectionString = config.GetConnectionString(connectionStringName);
+            
+            var optionsBuilder = new DbContextOptionsBuilder<DocumentLibraryContext>();
 
-            if (context.Books.Any())
+            optionsBuilder
+                .UseSqlServer(documentLibraryConnectionString);
+            
+            var documentLibraryContext = 
+                new DocumentLibraryContext(optionsBuilder.Options, userService);
+
+            return documentLibraryContext;
+        }
+        public static void Seed(IConfigurationRoot config, string connectionStringName, IUserService userService)
+        {
+            
+            DocumentLibraryContext dbContext = 
+                BuildDbContext(config, connectionStringName, userService);
+            
+            dbContext.Database.EnsureCreated();
+
+            if (dbContext.Books.Any())
             {
                 return;
             };
@@ -54,8 +77,8 @@ namespace DocumentLibrary.Data.Seed
                 }
             };
                     
-            context.Books.AddRange(books);
-            context.SaveChanges();
+            dbContext.Books.AddRange(books);
+            dbContext.SaveChanges();
         }
     }
 }

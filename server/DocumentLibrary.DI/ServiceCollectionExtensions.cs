@@ -3,8 +3,11 @@ using DocumentLibrary.Data.Repositories;
 using DocumentLibrary.Data.Repositories.Contracts;
 using DocumentLibrary.DTO;
 using DocumentLibrary.Infrastructure.AspNetHelpers;
+using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
+using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +19,7 @@ namespace DocumentLibrary.DI
             this IServiceCollection services, AppData appData)
         {
             BindServices(services);
+            BindInfrastructureServices(services);
             BindDbContexts(services, appData);
             BindRepositories(services);
             BindAspNetHelpers(services);
@@ -27,6 +31,12 @@ namespace DocumentLibrary.DI
         {
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IGenreService, GenreService>();
+        }
+
+        private static void BindInfrastructureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserService, UserService>();
         }
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)

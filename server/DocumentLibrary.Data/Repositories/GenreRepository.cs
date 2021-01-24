@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Data.Repositories.Contracts;
@@ -12,21 +13,20 @@ namespace DocumentLibrary.Data.Repositories
     public class GenreRepository : GenericRepository<Genre>, IGenreRepository
     {
         private readonly DocumentLibraryContext _context;
+        
+        private readonly IMapper _mapper;
 
-        public GenreRepository(DocumentLibraryContext context) : base(context)
+        public GenreRepository(DocumentLibraryContext context, IMapper mapper): base(context)
         {
             _context = context;
+            _mapper = mapper;
         }
         
         public async Task<List<GenreDto>> GetGenresAsync()
         {
             var genres = await this
                 .All()
-                .Select(b => new GenreDto
-                {
-                    Id = b.Id,
-                    Name = b.Name
-                })
+                .ProjectTo<GenreDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return genres;

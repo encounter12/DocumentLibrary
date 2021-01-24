@@ -56,10 +56,10 @@ namespace DocumentLibrary.Data.Repositories
         
         public virtual void Delete(T entity) 
             => DbSet.Remove(entity);
-        
-        public void SaveChanges()
-            => _context.SaveChanges();
-        
+
+        public void SaveChanges() 
+            => _context.SaveChanges(); 
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
 

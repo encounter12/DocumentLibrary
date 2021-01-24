@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DocumentLibrary.Infrastructure.AspNetHelpers
