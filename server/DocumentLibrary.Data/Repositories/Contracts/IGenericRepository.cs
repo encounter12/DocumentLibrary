@@ -27,6 +27,8 @@ namespace DocumentLibrary.Data.Repositories.Contracts
 
         void Delete(T entity);
 
+        void HardDelete(T entity);
+
         void SaveChanges();
 
         Task SaveChangesAsync();

@@ -80,8 +80,8 @@ namespace DocumentLibrary.API.Admin.Controllers
             
             try
             {
-                await Task.Delay(100);
-                return Ok();
+                await _bookService.DeleteBook(bookId);
+                return Ok(bookId);
             }
             catch (Exception e)
             {

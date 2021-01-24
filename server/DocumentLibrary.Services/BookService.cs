@@ -36,5 +36,18 @@ namespace DocumentLibrary.Services
 
             return bookId;
         }
+
+        public async Task DeleteBook(long bookId)
+        {
+            Book book = await _bookRepository.GetByIdAsync(bookId);
+            
+            if (book == null)
+            {
+                throw new ArgumentException($"No book with id: {bookId} has been found");
+            }
+            
+            _bookRepository.Delete(book);
+            await _bookRepository.SaveChangesAsync();
+        }
     }
 }

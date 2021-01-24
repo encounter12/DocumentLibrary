@@ -9,5 +9,7 @@ namespace DocumentLibrary.Services.Contracts
         Task<List<BookListDto>> GetBooksAsync();
 
         Task<long> AddBookAsync(BookPostDto bookPostDto);
+
+        Task DeleteBook(long bookId);
     }
 }

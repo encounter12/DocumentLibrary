@@ -137,33 +137,12 @@ namespace DocumentLibrary.Data.Context
 
             foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Modified))
             {
-                if (item.Property(AuditingColumn.ModifiedOn.ToString()) != null)
-                {
-                    item.Property(AuditingColumn.ModifiedOn.ToString()).CurrentValue = DateTime.Now;
-                }
-
-                if (item.Property(AuditingColumn.ModifiedBy.ToString()) != null)
-                {
-                    string currentUserUsername = _userService.Username;
-
-                    if (string.IsNullOrWhiteSpace(currentUserUsername))
-                    {
-                        throw new Exception("The username for ModifiedBy cannot be null, empty or whitespace");
-                    }
-
-                    item.Property(AuditingColumn.ModifiedBy.ToString()).CurrentValue = currentUserUsername;
-                }
-            }
-
-            foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
-            {
-                if (item.Property(AuditingColumn.DeletedOn.ToString()) != null)
+                object deleted = item.Property(AuditingColumn.Deleted.ToString())?.CurrentValue;
+                
+                if (deleted != null && (bool)deleted)
                 {
                     item.Property(AuditingColumn.DeletedOn.ToString()).CurrentValue = DateTime.Now;
-                }
-
-                if (item.Property(AuditingColumn.DeletedBy.ToString()) != null)
-                {
+                    
                     string currentUserUsername = _userService.Username;
 
                     if (string.IsNullOrWhiteSpace(currentUserUsername))
@@ -172,6 +151,27 @@ namespace DocumentLibrary.Data.Context
                     }
 
                     item.Property(AuditingColumn.DeletedBy.ToString()).CurrentValue = currentUserUsername;
+                }
+                else
+                {
+                    if (item.Property(AuditingColumn.ModifiedOn.ToString()) != null)
+                    {
+                        item.Property(AuditingColumn.ModifiedOn.ToString()).CurrentValue = DateTime.Now;
+                    }
+
+                    if (item.Property(AuditingColumn.ModifiedBy.ToString()) == null)
+                    {
+                        continue;
+                    }
+                    
+                    string currentUserUsername = _userService.Username;
+
+                    if (string.IsNullOrWhiteSpace(currentUserUsername))
+                    {
+                        throw new Exception("The username for ModifiedBy cannot be null, empty or whitespace");
+                    }
+
+                    item.Property(AuditingColumn.ModifiedBy.ToString()).CurrentValue = currentUserUsername;
                 }
             }
         }
@@ -184,7 +184,8 @@ namespace DocumentLibrary.Data.Context
             ModifiedOn,
             ModifiedBy,
             DeletedOn,
-            DeletedBy
+            DeletedBy,
+            Deleted
         }
     }
 }

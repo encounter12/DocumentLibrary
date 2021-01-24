@@ -50,12 +50,18 @@ namespace DocumentLibrary.Data.Repositories
 
         public virtual void Update(T entity) 
             => DbSet.Update(entity);
-        
-        public virtual void Delete(T entity) 
+
+        public virtual void Delete(T entity)
+        {
+            ChangeEntityState(entity, EntityState.Modified);
+            _context.Entry(entity).Property("Deleted").CurrentValue = true;
+        }
+
+        public virtual void HardDelete(T entity) 
             => DbSet.Remove(entity);
 
         public void SaveChanges() 
-            => _context.SaveChanges(); 
+            => _context.SaveChanges();
 
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
