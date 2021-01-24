@@ -11,7 +11,7 @@ namespace DocumentLibrary.Data.Context
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("Configuration/appdata.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("Configuration/appsettings-shared.json", optional: true, reloadOnChange: true)
                 .AddCommandLine(args)
                 .Build();
             

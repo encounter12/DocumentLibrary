@@ -24,17 +24,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DocumentLibrary.DTO\DocumentLibrary.DTO.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Configuration" />
+      <ProjectReference Include="..\DocumentLibrary.Infrastructure\DocumentLibrary.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Configuration\appdata.json" />
-      <Content Include="Configuration\appdata.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
 </Project>
