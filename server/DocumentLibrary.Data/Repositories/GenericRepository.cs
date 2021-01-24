@@ -56,7 +56,20 @@ namespace DocumentLibrary.Data.Repositories
             ChangeEntityState(entity, EntityState.Modified);
             _context.Entry(entity).Property("Deleted").CurrentValue = true;
         }
+        
+        public virtual async Task Delete(long entityId)
+        {
+            T entity = await GetByIdAsync(entityId);
+            
+            if (entity == null)
+            {
+                throw new ArgumentException(
+                    $"Delete failed. No {typeof(T).Name} with id: {entityId} has been found");
+            }
 
+            Delete(entity);
+        }
+        
         public virtual void HardDelete(T entity) 
             => DbSet.Remove(entity);
 
