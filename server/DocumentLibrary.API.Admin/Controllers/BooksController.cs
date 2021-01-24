@@ -69,5 +69,24 @@ namespace DocumentLibrary.API.Admin.Controllers
             
             return Ok(bookId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteBook(long bookId)
+        {
+            if (bookId <= 0)
+            {
+                return BadRequest("The operation cannot be completed. Non-existing BookId");
+            }
+            
+            try
+            {
+                await Task.Delay(100);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

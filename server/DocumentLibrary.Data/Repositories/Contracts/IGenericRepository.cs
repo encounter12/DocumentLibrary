@@ -21,8 +21,6 @@ namespace DocumentLibrary.Data.Repositories.Contracts
         
         void Add(T entity);
 
-        Task AddAsync(T entity);
-
         void AddRange(IEnumerable<T> entities);
 
         void Update(T entity);

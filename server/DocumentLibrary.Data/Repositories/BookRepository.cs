@@ -44,13 +44,13 @@ namespace DocumentLibrary.Data.Repositories
             return documents;
         }
 
-        public async Task<Book> AddBookAsync(BookPostDto bookPostDto, Genre genre)
+        public long AddBook(BookPostDto bookPostDto, Genre genre)
         {
             var book = _mapper.Map<Book>(bookPostDto);
             book.Genre = genre;
             
-            await AddAsync(book);
-            return book;
+            Add(book);
+            return book.Id;
         }
     }
 }

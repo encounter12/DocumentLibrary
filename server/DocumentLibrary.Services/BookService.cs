@@ -31,10 +31,10 @@ namespace DocumentLibrary.Services
                 throw new Exception($"Genre with Id: {bookPostDto.GenreId} could not be found");
             }
             
-            Book book = await _bookRepository.AddBookAsync(bookPostDto, genre);
+            long bookId = _bookRepository.AddBook(bookPostDto, genre);
             await _bookRepository.SaveChangesAsync();
 
-            return book.Id;
+            return bookId;
         }
     }
 }

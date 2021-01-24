@@ -1,6 +1,5 @@
 using System;
 using AutoMapper;
-using DocumentLibrary.API.Admin.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,14 +31,14 @@ namespace DocumentLibrary.API.Admin
             
             services.AddDependencyInjectionBindings(appData);
             
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentLibrary.API.Admin", Version = "v1"});
             });
-            
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
         
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

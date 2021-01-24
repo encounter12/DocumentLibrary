@@ -44,9 +44,6 @@ namespace DocumentLibrary.Data.Repositories
 
         public virtual void Add(T entity)
             => DbSet.Add(entity);
-        
-        public virtual async Task AddAsync(T entity)
-            => await DbSet.AddAsync(entity);
 
         public virtual void AddRange(IEnumerable<T> entities)
             => DbSet.AddRange(entities);

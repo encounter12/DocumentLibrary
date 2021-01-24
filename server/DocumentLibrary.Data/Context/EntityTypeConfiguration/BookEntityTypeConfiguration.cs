@@ -10,6 +10,10 @@ namespace DocumentLibrary.Data.Context.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             builder
+                .Property(b => b.Id)
+                .UseHiLo();
+            
+            builder
                 .Property(b => b.AvailabilityDate)
                 .HasDefaultValue(new DateTime(1970, 1, 1, 0, 0, 0));
 
