@@ -7,6 +7,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DocumentLibrary.Data\DocumentLibrary.Data.csproj" />
       <ProjectReference Include="..\DocumentLibrary.DTO\DocumentLibrary.DTO.csproj" />
+      <ProjectReference Include="..\DocumentLibrary.Infrastructure\DocumentLibrary.Infrastructure.csproj" />
       <ProjectReference Include="..\DocumentLibrary.Services\DocumentLibrary.Services.csproj" />
     </ItemGroup>
 

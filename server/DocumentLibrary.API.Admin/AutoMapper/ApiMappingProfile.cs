@@ -4,9 +4,9 @@ using DocumentLibrary.DTO.DTOs;
 
 namespace DocumentLibrary.API.Admin.AutoMapper
 {
-    public class MappingProfile : Profile
+    public class ApiMappingProfile : Profile
     {
-        public MappingProfile()
+        public ApiMappingProfile()
         {
             CreateMap<BookPostModel, BookPostDto>();
             CreateMap<BookListDto, BookListViewModel>();

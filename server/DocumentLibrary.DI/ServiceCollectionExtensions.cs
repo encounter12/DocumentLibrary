@@ -2,6 +2,7 @@ using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Repositories;
 using DocumentLibrary.Data.Repositories.Contracts;
 using DocumentLibrary.DTO;
+using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace DocumentLibrary.DI
             BindServices(services);
             BindDbContexts(services, appData);
             BindRepositories(services);
+            BindAspNetHelpers(services);
 
             return services;
         }
@@ -38,6 +40,11 @@ namespace DocumentLibrary.DI
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+        }
+
+        private static void BindAspNetHelpers(IServiceCollection services)
+        {
+            services.AddScoped<IModelStateErrorHandler, ModelStateErrorHandler>();
         }
     }
 }

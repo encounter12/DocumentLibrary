@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Admin.ViewModels;
 using DocumentLibrary.DTO.DTOs;
+using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DocumentLibrary.API.Admin.Controllers
 {
@@ -16,11 +15,17 @@ namespace DocumentLibrary.API.Admin.Controllers
     {
         private readonly IBookService _bookService;
         
+        private readonly IModelStateErrorHandler _modelStateErrorHandler;
+        
         private readonly IMapper _mapper;
 
-        public BooksController(IBookService bookService, IMapper mapper)
+        public BooksController(
+            IBookService bookService,
+            IModelStateErrorHandler modelStateErrorHandler,
+            IMapper mapper)
         {
             _bookService = bookService;
+            _modelStateErrorHandler = modelStateErrorHandler;
             _mapper = mapper;
         }
 
@@ -37,7 +42,7 @@ namespace DocumentLibrary.API.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errors = GetErrors(ModelState);
+                List<string> errors = _modelStateErrorHandler.GetErrors(ModelState);
                 return BadRequest(errors);
             }
             
@@ -45,12 +50,5 @@ namespace DocumentLibrary.API.Admin.Controllers
             await _bookService.AddBookAsync(bookPostDto);
             return Ok();
         }
-
-        private List<string> GetErrors(ModelStateDictionary modelState)
-            => modelState.Values
-                .SelectMany(msv => msv.Errors)
-                .Select(x => x.ErrorMessage)
-                .ToList();
-        
     }
 }

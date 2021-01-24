@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using DocumentLibrary.API.Admin.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +39,7 @@ namespace DocumentLibrary.API.Admin
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentLibrary.API.Admin", Version = "v1"});
             });
             
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
         
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
