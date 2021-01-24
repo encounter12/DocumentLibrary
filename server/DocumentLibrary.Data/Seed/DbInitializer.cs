@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Entities;
-using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +49,11 @@ namespace DocumentLibrary.Data.Seed
             {
                 Name = "Fiction"
             };
+            
+            var popularScience = new Genre
+            {
+                Name = "Popular science"
+            };
                         
             var books = new List<Book>
             {
@@ -75,6 +80,18 @@ namespace DocumentLibrary.Data.Seed
                         new Keyword { Name = "crime" },
                         new Keyword { Name = "drama" }
                     }
+                },
+                new Book
+                {
+                    Name = "Brief history of time",
+                    Genre = popularScience,
+                    Keywords = new List<Keyword>
+                    {
+                        new Keyword { Name = "science" },
+                        new Keyword { Name = "theoretical physics" },
+                        new Keyword { Name = "quantum mechanics" }
+                    },
+                    AvailabilityDate = DateTime.Now.AddDays(15)
                 }
             };
                     
