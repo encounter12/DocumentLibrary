@@ -39,6 +39,7 @@ namespace DocumentLibrary.DI
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDateTimeHelper, DateTimeHelper>();
+            services.AddScoped<IPageFilterValidator, PageFilterValidator>();
         }
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)

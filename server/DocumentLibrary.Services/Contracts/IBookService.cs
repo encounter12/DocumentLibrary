@@ -8,6 +8,8 @@ namespace DocumentLibrary.Services.Contracts
     {
         Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage);
 
+        Task<int> GetAllRecordsCountAsync();
+
         Task<long> AddBookAsync(BookPostDto bookPostDto);
 
         Task DeleteBook(long bookId);

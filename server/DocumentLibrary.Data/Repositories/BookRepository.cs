@@ -45,19 +45,22 @@ namespace DocumentLibrary.Data.Repositories
                 .Take(itemsPerPage)
                 .ToListAsync();
 
-            int allRecordsCount = this.All().Count();
+            int allRecordsCount = await this.All().CountAsync();
             var pagesCount = allRecordsCount % itemsPerPage > 0 ? 
                 (allRecordsCount / itemsPerPage) + 1 : (allRecordsCount / itemsPerPage);
 
-            var responseModel = new BooksGridDto
+            var booksGridDto = new BooksGridDto
             {
                 BooksList = documents,
                 PagesCount = pagesCount
             };
 
-            return responseModel;
+            return booksGridDto;
         }
 
+        public async Task<int> GetAllRecordsCountAsync()
+            => await this.All().CountAsync();
+        
         public async Task<List<BookListDto>> GetBooksAsync()
         {
             DateTime dateTimeNow = _dateTimeHelper.GetDateTimeNow();
