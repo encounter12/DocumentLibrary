@@ -25,6 +25,38 @@ namespace DocumentLibrary.Data.Repositories
             _mapper = mapper;
             _dateTimeHelper = dateTimeHelper;
         }
+        
+        public async Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage)
+        {
+            DateTime dateTimeNow = _dateTimeHelper.GetDateTimeNow();
+            int skip = pageNumber * itemsPerPage - itemsPerPage;
+
+            var documents = await this
+                .All()
+                .Select(b => new BookListDto
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre.Name,
+                    IsCheckedOut = b.AvailabilityDate > dateTimeNow
+                })
+                .OrderByDescending(b => b.Id)
+                .Skip(skip)
+                .Take(itemsPerPage)
+                .ToListAsync();
+
+            int allRecordsCount = this.All().Count();
+            var pagesCount = allRecordsCount % itemsPerPage > 0 ? 
+                (allRecordsCount / itemsPerPage) + 1 : (allRecordsCount / itemsPerPage);
+
+            var responseModel = new BooksGridDto
+            {
+                BooksList = documents,
+                PagesCount = pagesCount
+            };
+
+            return responseModel;
+        }
 
         public async Task<List<BookListDto>> GetBooksAsync()
         {

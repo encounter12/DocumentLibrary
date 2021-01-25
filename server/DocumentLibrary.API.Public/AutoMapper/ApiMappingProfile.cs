@@ -8,7 +8,7 @@ namespace DocumentLibrary.API.Public.AutoMapper
     {
         public ApiMappingProfile()
         {
-            CreateMap<BookListDto, BookListViewModel>();
+            CreateMap<BooksGridDto, BooksGridViewModel>();
         }
     }
 }

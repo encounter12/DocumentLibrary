@@ -37,7 +37,7 @@ namespace DocumentLibrary.API.Public
             
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentLibrary.API.Admin", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentLibrary.API.Public", Version = "v1"});
             });
         }
         

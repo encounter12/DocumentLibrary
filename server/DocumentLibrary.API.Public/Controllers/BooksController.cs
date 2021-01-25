@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Public.ViewModels;
@@ -31,12 +30,12 @@ namespace DocumentLibrary.API.Public.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetBooks()
+        public async Task<ActionResult> GetBooks(int pageNumber, int itemsPerPage)
         {
             try
             {
-                List<BookListDto> books = await _bookService.GetBooksAsync();
-                var booksListViewModel = _mapper.Map<List<BookListViewModel>>(books);
+                BooksGridDto books = await _bookService.GetBooksAsync(pageNumber, itemsPerPage);
+                var booksListViewModel = _mapper.Map<BooksGridViewModel>(books);
                 
                 return Ok(booksListViewModel);
             }
