@@ -51,9 +51,9 @@ namespace DocumentLibrary.API.Public.Controllers
                 }
                 
                 BooksGridDto books = await _bookService.GetBooksAsync(pageNumber, itemsPerPage);
-                var booksListViewModel = _mapper.Map<BooksGridViewModel>(books);
+                var booksGridViewModel = _mapper.Map<BooksGridViewModel>(books);
                 
-                return Ok(booksListViewModel);
+                return Ok(booksGridViewModel);
             }
             catch (Exception e)
             {

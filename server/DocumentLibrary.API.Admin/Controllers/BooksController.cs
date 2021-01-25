@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Admin.ViewModels;
@@ -17,16 +18,20 @@ namespace DocumentLibrary.API.Admin.Controllers
         private readonly IBookService _bookService;
         
         private readonly IModelStateErrorHandler _modelStateErrorHandler;
+
+        private readonly IPageFilterValidator _pageFilterValidator;
         
         private readonly IMapper _mapper;
 
         public BooksController(
             IBookService bookService,
             IModelStateErrorHandler modelStateErrorHandler,
+            IPageFilterValidator pageFilterValidator,
             IMapper mapper)
         {
             _bookService = bookService;
             _modelStateErrorHandler = modelStateErrorHandler;
+            _pageFilterValidator = pageFilterValidator;
             _mapper = mapper;
         }
 
@@ -35,20 +40,20 @@ namespace DocumentLibrary.API.Admin.Controllers
         {
             try
             {
-                if (pageNumber == 0)
-                {
-                    pageNumber = 1;
-                }
+                int allRecordsCount = await _bookService.GetAllRecordsCountAsync();
+                
+                IEnumerable<string> validationErrors =
+                    _pageFilterValidator.Validate(pageNumber, itemsPerPage, allRecordsCount);
 
-                if (itemsPerPage == 0)
+                if (validationErrors.Any())
                 {
-                    itemsPerPage = 10;
+                    return BadRequest(validationErrors);
                 }
 
                 BooksGridDto books = await _bookService.GetBooksAsync(pageNumber, itemsPerPage);
-                var booksListViewModel = _mapper.Map<BooksGridViewModel>(books);
+                var booksGridViewModel = _mapper.Map<BooksGridViewModel>(books);
                 
-                return Ok(booksListViewModel);
+                return Ok(booksGridViewModel);
             }
             catch (Exception e)
             {
