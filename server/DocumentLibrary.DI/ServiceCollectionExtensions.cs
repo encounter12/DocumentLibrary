@@ -44,8 +44,10 @@ namespace DocumentLibrary.DI
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)
         {
-            services.AddDbContext<DocumentLibraryContext>(options => 
-                options.UseSqlServer(appData.DocumentLibraryConnectionString));
+            services.AddDbContext<DocumentLibraryContext>(options =>
+                options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(appData.DocumentLibraryConnectionString));
         }
         
         private static void BindRepositories(IServiceCollection services)

@@ -17,6 +17,13 @@ namespace DocumentLibrary.Data.AutoMapper
                 })));
 
             CreateMap<Genre, GenreDto>();
+            
+            CreateMap<Book, BookDetailsDto>()
+                .ForMember(dest 
+                    => dest.Genre, 
+                    opt => opt.MapFrom(src => src.Genre.Name))
+                .ForMember(dest => dest.Keywords,
+                opt=> opt.MapFrom(src => src.Keywords.Select(x => x.Name)));
         }
     }
 }

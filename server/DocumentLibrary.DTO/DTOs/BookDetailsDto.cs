@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace DocumentLibrary.Data.Entities
+namespace DocumentLibrary.DTO.DTOs
 {
-    public class Book
+    public class BookDetailsDto
     {
-        public long Id { get; set; }
-        
         public string Name { get; set; }
         
-        public virtual Genre Genre { get; set; }
+        public string Genre { get; set; }
+        
+        public List<string> Keywords { get; set; }
         
         public string Description { get; set; }
         
         public DateTime AvailabilityDate { get; set; }
         
         public string DownloadLink { get; set; }
-        
-        public virtual ICollection<Keyword> Keywords { get; set; }
     }
 }

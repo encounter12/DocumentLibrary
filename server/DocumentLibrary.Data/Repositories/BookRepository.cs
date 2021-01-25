@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.Data.Context;
@@ -56,6 +57,15 @@ namespace DocumentLibrary.Data.Repositories
             };
 
             return booksGridDto;
+        }
+
+        public async Task<BookDetailsDto> GetBookDetailsAsync(long bookId)
+        {
+            Book book = await this.GetByIdAsync(bookId);
+
+            BookDetailsDto bookDetailsDto = _mapper.Map<BookDetailsDto>(book);
+
+            return bookDetailsDto;
         }
 
         public async Task<int> GetAllRecordsCountAsync()

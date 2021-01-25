@@ -24,7 +24,7 @@ namespace DocumentLibrary.Data.Context
         public DbSet<Genre> Genres { get; set; }
         
         public DbSet<Keyword> Keywords { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new BookEntityTypeConfiguration().Configure(modelBuilder.Entity<Book>());

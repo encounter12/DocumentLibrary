@@ -13,6 +13,8 @@ namespace DocumentLibrary.Data.Repositories.Contracts
 
         Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage);
 
+        Task<BookDetailsDto> GetBookDetailsAsync(long bookId);
+
         Task<int> GetAllRecordsCountAsync();
     }
 }

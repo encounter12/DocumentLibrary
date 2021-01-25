@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Public.ViewModels;
+using DocumentLibrary.Data.Entities;
 using DocumentLibrary.DTO.DTOs;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Services.Contracts;
@@ -54,6 +55,21 @@ namespace DocumentLibrary.API.Public.Controllers
                 var booksGridViewModel = _mapper.Map<BooksGridViewModel>(books);
                 
                 return Ok(booksGridViewModel);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetBookDetails(long id)
+        {
+            try
+            {
+                BookDetailsDto bookDetailsDto = await _bookService.GetBookDetailsAsync(id);
+                return Ok(bookDetailsDto);
             }
             catch (Exception e)
             {

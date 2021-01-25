@@ -6,6 +6,6 @@ namespace DocumentLibrary.Data.Entities
         
         public string Name { get; set; }
         
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
     }
 }
