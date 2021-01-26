@@ -38,7 +38,10 @@ namespace DocumentLibrary.Data.Repositories
                     Id = b.Id,
                     Name = b.Name,
                     Genre = b.Genre.Name,
-                    IsCheckedOut = b.AvailabilityDate > dateTimeNow
+                    IsCheckedOut = b.BookCheckouts
+                        .Select(bc => bc.AvailabilityDate)
+                        .OrderByDescending(bcd => bcd)
+                        .FirstOrDefault() > dateTimeNow
                 })
                 .OrderByDescending(b => b.Id)
                 .Skip(skip)
@@ -81,7 +84,10 @@ namespace DocumentLibrary.Data.Repositories
                     Id = b.Id,
                     Name = b.Name,
                     Genre = b.Genre.Name,
-                    IsCheckedOut = b.AvailabilityDate > dateTimeNow
+                    IsCheckedOut = b.BookCheckouts
+                        .Select(bc => bc.AvailabilityDate)
+                        .OrderByDescending(bcd => bcd)
+                        .FirstOrDefault() > dateTimeNow
                 })
                 .ToListAsync();
 

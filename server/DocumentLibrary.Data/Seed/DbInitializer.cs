@@ -54,7 +54,12 @@ namespace DocumentLibrary.Data.Seed
             {
                 Name = "Popular science"
             };
-                        
+
+            var standardUser = new User
+            {
+                Name = "Georgi"
+            };
+            
             var books = new List<Book>
             {
                 new Book
@@ -68,6 +73,14 @@ namespace DocumentLibrary.Data.Seed
                         new Keyword { Name = "space" },
                         new Keyword { Name = "artificial intelligence" },
                         new Keyword { Name = "astronaut" }
+                    },
+                    BookCheckouts = new List<BookCheckout>
+                    {
+                        new BookCheckout
+                        {
+                            User = standardUser,
+                            AvailabilityDate = DateTime.Now.AddDays(5)
+                        }
                     }
                 },
                 new Book
@@ -89,8 +102,7 @@ namespace DocumentLibrary.Data.Seed
                         new Keyword { Name = "science" },
                         new Keyword { Name = "theoretical physics" },
                         new Keyword { Name = "quantum mechanics" }
-                    },
-                    AvailabilityDate = DateTime.Now.AddDays(15)
+                    }
                 }
             };
                     

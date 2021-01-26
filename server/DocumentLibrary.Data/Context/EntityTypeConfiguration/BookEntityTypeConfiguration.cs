@@ -12,10 +12,6 @@ namespace DocumentLibrary.Data.Context.EntityTypeConfiguration
             builder
                 .Property(b => b.Id)
                 .UseHiLo();
-            
-            builder
-                .Property(b => b.AvailabilityDate)
-                .HasDefaultValue(new DateTime(1970, 1, 1, 0, 0, 0));
 
             builder
                 .Property(b => b.Name)

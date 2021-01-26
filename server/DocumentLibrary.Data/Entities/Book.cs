@@ -13,10 +13,10 @@ namespace DocumentLibrary.Data.Entities
         
         public string Description { get; set; }
         
-        public DateTime AvailabilityDate { get; set; }
-        
         public string DownloadLink { get; set; }
         
         public virtual ICollection<Keyword> Keywords { get; set; }
+        
+        public virtual ICollection<BookCheckout> BookCheckouts { get; set; }
     }
 }
