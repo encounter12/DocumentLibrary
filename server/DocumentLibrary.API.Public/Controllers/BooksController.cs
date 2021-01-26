@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Public.ViewModels;
-using DocumentLibrary.Data.Entities;
 using DocumentLibrary.DTO.DTOs;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Services.Contracts;
@@ -69,7 +68,9 @@ namespace DocumentLibrary.API.Public.Controllers
             try
             {
                 BookDetailsDto bookDetailsDto = await _bookService.GetBookDetailsAsync(id);
-                return Ok(bookDetailsDto);
+                BookDetailsViewModel bookDetailsViewModel = _mapper.Map<BookDetailsViewModel>(bookDetailsDto);
+                
+                return Ok(bookDetailsViewModel);
             }
             catch (Exception e)
             {
@@ -77,6 +78,21 @@ namespace DocumentLibrary.API.Public.Controllers
             }
         }
         
-        //TODO: Implement action methods: CheckoutBook (PUT), SearchForBooks (GET)
+        //TODO: Implement action methods: CheckoutBook (PUT), DownloadBook (GET),
+        //SearchForBooks (GET) - search using Azure Cognitive Search 
+        
+        [HttpPut]
+        [Route("Checkout/{id}")]
+        public async Task<ActionResult> Checkout(long id)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

@@ -61,6 +61,9 @@ namespace DocumentLibrary.API.Admin.Controllers
             }
         }
         
+        //TODO: Implement file upload in action method: PostBook(), implement upload to Azure Blob Storage and
+        //automatic blob indexing using Azure Cognitive Search 
+        
         [HttpPost]
         public async Task<ActionResult> PostBook(BookPostModel bookPostModel)
         {
