@@ -76,5 +76,7 @@ namespace DocumentLibrary.API.Public.Controllers
                 return BadRequest(e.Message);
             }
         }
+        
+        //TODO: Implement action methods: CheckoutBook (PUT), SearchForBooks (GET)
     }
 }
