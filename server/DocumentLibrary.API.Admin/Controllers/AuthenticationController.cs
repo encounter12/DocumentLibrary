@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,11 +102,14 @@ namespace DocumentLibrary.API.Admin.Controllers
             if (!result.Succeeded)
             {
                 return StatusCode(
-                    StatusCodes.Status500InternalServerError, 
-                    new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                    StatusCodes.Status500InternalServerError,
+                    new Response
+                    {
+                        Status = "Error",
+                        Message = string.Join(" ", result.Errors.Select(x => x.Description))
+                    });
             }
-                  
-  
+
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });  
         }
     }  
