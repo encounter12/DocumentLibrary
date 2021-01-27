@@ -173,6 +173,6 @@ namespace DocumentLibrary.Data.Seed
     public enum UserRoles
     {
         Admin,
-        Standard
+        User
     }
 }
