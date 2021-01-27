@@ -17,6 +17,8 @@ namespace DocumentLibrary.API.Admin
                 .AddJsonFile("Configuration/appsettings-shared.json", optional: false, reloadOnChange: false)
                 .Build();
             
+            var host = CreateHostBuilder(args, configuration).Build();
+            
             DbInitializer.Seed(
                 configuration, "DocumentLibraryConnection", new UserServiceStartupTime());
             

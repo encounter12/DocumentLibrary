@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using DocumentLibrary.DI;
-using DocumentLibrary.DTO;
+using DocumentLibrary.DTO.Config;
 
 namespace DocumentLibrary.API.Public
 {

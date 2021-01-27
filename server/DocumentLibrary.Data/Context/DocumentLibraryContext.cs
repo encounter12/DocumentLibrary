@@ -5,12 +5,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using DocumentLibrary.Data.Context.EntityTypeConfiguration;
 using DocumentLibrary.Data.Entities;
+using DocumentLibrary.Data.Identity;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentLibrary.Data.Context
 {
-    public class DocumentLibraryContext : DbContext
+    public class DocumentLibraryContext : IdentityDbContext<ApplicationUser>
     {
         private readonly IUserService _userService;
         public DocumentLibraryContext(DbContextOptions<DocumentLibraryContext> options, IUserService userService) : 
@@ -27,6 +29,8 @@ namespace DocumentLibrary.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            
             new BookEntityTypeConfiguration().Configure(modelBuilder.Entity<Book>());
             new GenreEntityTypeConfiguration().Configure(modelBuilder.Entity<Genre>());
             new KeywordEntityTypeConfiguration().Configure(modelBuilder.Entity<Keyword>());
@@ -39,7 +43,7 @@ namespace DocumentLibrary.Data.Context
                 BuildSoftDeleteGlobalQueryFilter(modelBuilder, entityType);
             }
         }
-
+        
         private void BuildSoftDeleteGlobalQueryFilter(ModelBuilder modelBuilder, Type entityType)
         {
             Expression<Func<bool>> deleted = () => false;
@@ -81,6 +85,11 @@ namespace DocumentLibrary.Data.Context
                 .ValueGeneratedNever();
                 
             modelBuilder.Entity(entityType)
+                .Property<bool>(@"Deleted")
+                .HasColumnName(@"Deleted")
+                .ValueGeneratedNever();
+            
+            modelBuilder.Entity(entityType)
                 .Property<DateTime?>(@"DeletedOn")
                 .HasColumnName(@"DeletedOn")
                 .ValueGeneratedNever();
@@ -88,11 +97,6 @@ namespace DocumentLibrary.Data.Context
             modelBuilder.Entity(entityType)
                 .Property<string>(@"DeletedBy")
                 .HasColumnName(@"DeletedBy")
-                .ValueGeneratedNever();
-                
-            modelBuilder.Entity(entityType)
-                .Property<bool>(@"Deleted")
-                .HasColumnName(@"Deleted")
                 .ValueGeneratedNever();
         }
         

@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using DocumentLibrary.Data.Context;
 using DocumentLibrary.Data.Entities;
+using DocumentLibrary.Data.Identity;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace DocumentLibrary.Data.Seed
 {
@@ -39,7 +43,62 @@ namespace DocumentLibrary.Data.Seed
             {
                 return;
             };
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dbContext), 
+                null, 
+                null, 
+                null, 
+                null);
+
+            bool adminRoleExists = roleManager.RoleExistsAsync(UserRoles.Admin.ToString()).Result;
             
+            if (!adminRoleExists)
+            {
+                roleManager.CreateAsync(new IdentityRole(UserRoles.Admin.ToString())).Wait();
+            }
+
+            var adminUser = new ApplicationUser
+            {
+                UserName = "john.doe",
+                Email = "john.doe@gmail.com",
+                EmailConfirmed = true
+            };
+
+            string password = "Qwerty123";
+
+            var optionsInstance = new IdentityOptions
+            {
+                Password =
+                {
+                    RequireDigit = true
+                }
+            };
+            
+            IOptions<IdentityOptions> optionParameter = Options.Create(optionsInstance);
+
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(dbContext),
+                optionParameter,
+                new PasswordHasher<ApplicationUser>(), 
+                null, 
+                null, 
+                null, 
+                null, 
+                null,
+                null);
+            
+            var adminUserFromDb =  userManager.FindByNameAsync(adminUser.UserName).Result;
+
+            if (adminUserFromDb == null)
+            {
+                IdentityResult result = userManager.CreateAsync(adminUser, password).Result;
+            
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(adminUser, UserRoles.Admin.ToString()).Wait();
+                }
+            }
+
             var sciFiGenre = new Genre
             {
                 Name = "Sci-Fi"
@@ -109,5 +168,11 @@ namespace DocumentLibrary.Data.Seed
             dbContext.Books.AddRange(books);
             dbContext.SaveChanges();
         }
+    }
+
+    public enum UserRoles
+    {
+        Admin,
+        Standard
     }
 }

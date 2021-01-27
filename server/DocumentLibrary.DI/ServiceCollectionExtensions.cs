@@ -1,16 +1,21 @@
+using System.Text;
 using DocumentLibrary.Data.Context;
+using DocumentLibrary.Data.Identity;
 using DocumentLibrary.Data.Repositories;
 using DocumentLibrary.Data.Repositories.Contracts;
-using DocumentLibrary.DTO;
+using DocumentLibrary.DTO.Config;
 using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
 using DocumentLibrary.Infrastructure.DateTimeHelpers;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DocumentLibrary.DI
 {
@@ -22,6 +27,7 @@ namespace DocumentLibrary.DI
             BindServices(services);
             BindInfrastructureServices(services);
             BindDbContexts(services, appData);
+            BindIdentity(services, appData);
             BindRepositories(services);
             BindAspNetHelpers(services);
 
@@ -60,6 +66,37 @@ namespace DocumentLibrary.DI
         private static void BindAspNetHelpers(IServiceCollection services)
         {
             services.AddScoped<IModelStateErrorHandler, ModelStateErrorHandler>();
+        }
+
+        private static void BindIdentity(IServiceCollection services, AppData appData)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>()  
+                .AddEntityFrameworkStores<DocumentLibraryContext>()  
+                .AddDefaultTokenProviders();  
+  
+            // Adding Authentication  
+            services.AddAuthentication(options =>  
+                {  
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;  
+                })  
+  
+                // Adding Jwt Bearer  
+                .AddJwtBearer(options =>  
+                {  
+                    options.SaveToken = true;  
+                    options.RequireHttpsMetadata = false;  
+                    options.TokenValidationParameters = new TokenValidationParameters()  
+                    {  
+                        ValidateIssuer = true,  
+                        ValidateAudience = true,  
+                        ValidAudience = appData.JwtConfig.ValidAudience,  
+                        ValidIssuer = appData.JwtConfig.ValidIssuer,  
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(appData.JwtConfig.IssuerSigningKey))  
+                    };  
+                }); 
         }
     }
 }

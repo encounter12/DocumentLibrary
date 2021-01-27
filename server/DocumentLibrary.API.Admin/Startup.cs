@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using DocumentLibrary.DI;
 using DocumentLibrary.DTO;
+using DocumentLibrary.DTO.Config;
 
 namespace DocumentLibrary.API.Admin
 {
@@ -24,8 +25,12 @@ namespace DocumentLibrary.API.Admin
         {
             services.AddControllers();
 
+            var jwtBearer = new JwtConfig();
+            Configuration.GetSection(nameof(JwtConfig)).Bind(jwtBearer);
+            
             var appData = new AppData()
             {
+                JwtConfig = jwtBearer,
                 DocumentLibraryConnectionString = Configuration.GetConnectionString("DocumentLibraryConnection")
             };
             
@@ -55,6 +60,7 @@ namespace DocumentLibrary.API.Admin
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
