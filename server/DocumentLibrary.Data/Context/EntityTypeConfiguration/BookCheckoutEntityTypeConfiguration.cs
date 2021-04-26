@@ -19,9 +19,9 @@ namespace DocumentLibrary.Data.Context.EntityTypeConfiguration
                 .IsRequired(true);
             
             builder
-                .HasOne(bc => bc.User)
+                .HasOne(bc => bc.ApplicationUser)
                 .WithMany(u => u.BookCheckouts)
-                .HasForeignKey(bc => bc.UserId)
+                .HasForeignKey(bc => bc.ApplicationUserId)
                 .IsRequired(true);
         }
     }

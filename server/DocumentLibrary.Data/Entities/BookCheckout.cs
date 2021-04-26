@@ -1,4 +1,5 @@
 using System;
+using DocumentLibrary.Data.Identity;
 
 namespace DocumentLibrary.Data.Entities
 {
@@ -7,10 +8,12 @@ namespace DocumentLibrary.Data.Entities
         public long Id { get; set; }
         
         public long BookId { get; set; }
+        
         public virtual Book Book { get; set; }
         
-        public long UserId { get; set; }
-        public virtual User User { get; set; }
+        public long ApplicationUserId { get; set; }
+        
+        public virtual ApplicationUser ApplicationUser { get; set; }
         
         public DateTime AvailabilityDate { get; set; }
     }

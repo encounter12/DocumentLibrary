@@ -87,6 +87,7 @@ namespace DocumentLibrary.API.Public.Controllers
         {
             try
             {
+                await Task.Delay(100);
                 return Ok();
             }
             catch (Exception e)

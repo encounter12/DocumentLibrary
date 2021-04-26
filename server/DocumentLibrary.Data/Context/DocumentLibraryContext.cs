@@ -34,6 +34,7 @@ namespace DocumentLibrary.Data.Context
             new BookEntityTypeConfiguration().Configure(modelBuilder.Entity<Book>());
             new GenreEntityTypeConfiguration().Configure(modelBuilder.Entity<Genre>());
             new KeywordEntityTypeConfiguration().Configure(modelBuilder.Entity<Keyword>());
+            new ApplicationUserEntityTypeConfiguration().Configure(modelBuilder.Entity<ApplicationUser>());
 
             foreach (var entityModelType in modelBuilder.Model.GetEntityTypes())
             {

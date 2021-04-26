@@ -7,10 +7,12 @@ using DocumentLibrary.API.Admin.ViewModels;
 using DocumentLibrary.DTO.DTOs;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentLibrary.API.Admin.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("Admin/[controller]")]
     public class BooksController : ControllerBase

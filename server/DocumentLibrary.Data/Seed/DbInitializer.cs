@@ -50,21 +50,30 @@ namespace DocumentLibrary.Data.Seed
                 null, 
                 null);
 
-            bool adminRoleExists = roleManager.RoleExistsAsync(UserRoles.Admin.ToString()).Result;
-            
-            if (!adminRoleExists)
-            {
-                roleManager.CreateAsync(new IdentityRole(UserRoles.Admin.ToString())).Wait();
-            }
+            SeedRole(roleManager, UserRoles.Admin);
+            SeedRole(roleManager, UserRoles.StandardUser);
 
             var adminUser = new ApplicationUser
             {
                 UserName = "john.doe",
                 Email = "john.doe@gmail.com",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FirstName = "John",
+                LastName = "Doe"
             };
 
-            string password = "Qwerty123";
+            string adminUserPassword = "Qwerty123";
+            
+            var standardUser = new ApplicationUser
+            {
+                UserName = "michael.jordan",
+                Email = "michael.jordan@gmail.com",
+                EmailConfirmed = true,
+                FirstName = "Michael",
+                LastName = "Jordan"
+            };
+
+            string standardUserPassword = "Qwerty456";
 
             var optionsInstance = new IdentityOptions
             {
@@ -86,18 +95,9 @@ namespace DocumentLibrary.Data.Seed
                 null, 
                 null,
                 null);
-            
-            var adminUserFromDb =  userManager.FindByNameAsync(adminUser.UserName).Result;
 
-            if (adminUserFromDb == null)
-            {
-                IdentityResult result = userManager.CreateAsync(adminUser, password).Result;
-            
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(adminUser, UserRoles.Admin.ToString()).Wait();
-                }
-            }
+            SeedUser(userManager, adminUser, adminUserPassword, UserRoles.Admin);
+            SeedUser(userManager, standardUser, standardUserPassword, UserRoles.StandardUser);
 
             var sciFiGenre = new Genre
             {
@@ -114,11 +114,6 @@ namespace DocumentLibrary.Data.Seed
                 Name = "Popular science"
             };
 
-            var standardUser = new User
-            {
-                Name = "Georgi"
-            };
-            
             var books = new List<Book>
             {
                 new Book
@@ -137,7 +132,7 @@ namespace DocumentLibrary.Data.Seed
                     {
                         new BookCheckout
                         {
-                            User = standardUser,
+                            ApplicationUser = standardUser,
                             AvailabilityDate = DateTime.Now.AddDays(5)
                         }
                     }
@@ -168,11 +163,40 @@ namespace DocumentLibrary.Data.Seed
             dbContext.Books.AddRange(books);
             dbContext.SaveChanges();
         }
-    }
+        
+        private static void SeedUser(
+            UserManager<ApplicationUser> userManager,
+            ApplicationUser user,
+            string password,
+            UserRoles roleName)
+        {
+            var adminUserFromDb =  userManager.FindByNameAsync(user.UserName).Result;
 
+            if (adminUserFromDb == null)
+            {
+                IdentityResult result = userManager.CreateAsync(user, password).Result;
+            
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, roleName.ToString()).Wait();
+                }
+            }
+        }
+
+        private static void SeedRole(RoleManager<IdentityRole> roleManager, UserRoles roleName)
+        {
+            bool roleExists = roleManager.RoleExistsAsync(roleName.ToString()).Result;
+            
+            if (!roleExists)
+            {
+                roleManager.CreateAsync(new IdentityRole(roleName.ToString())).Wait();
+            }
+        }
+    }
+    
     public enum UserRoles
     {
         Admin,
-        User
+        StandardUser
     }
 }
