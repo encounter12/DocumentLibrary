@@ -10,6 +10,7 @@ namespace DocumentLibrary.API.Admin.AutoMapper
         {
             CreateMap<BookPostModel, BookPostDto>();
             CreateMap<BooksGridDto, BooksGridViewModel>();
+            CreateMap<BookEditViewModel, BookEditDto>();
         }
     }
 }

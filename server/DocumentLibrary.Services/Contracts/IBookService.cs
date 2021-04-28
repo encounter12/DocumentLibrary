@@ -14,6 +14,8 @@ namespace DocumentLibrary.Services.Contracts
 
         Task<long> AddBookAsync(BookPostDto bookPostDto);
 
+        Task UpdateBookAsync(BookEditDto bookEditDto);
+
         Task DeleteBook(long bookId);
     }
 }

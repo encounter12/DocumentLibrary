@@ -91,6 +91,29 @@ namespace DocumentLibrary.API.Admin.Controllers
             
             return Ok(bookId);
         }
+        
+        [HttpPut]
+        public async Task<ActionResult> PutBook(BookEditViewModel bookEditViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<string> errors = _modelStateErrorHandler.GetErrors(ModelState);
+                return BadRequest(errors);
+            }
+            
+            try
+            {
+                var bookEditDto = _mapper.Map<BookEditDto>(bookEditViewModel);
+                await _bookService.UpdateBookAsync(bookEditDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+            return Ok();
+        }
+        
 
         [HttpDelete]
         public async Task<ActionResult> DeleteBook(long bookId)

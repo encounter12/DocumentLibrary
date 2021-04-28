@@ -148,6 +148,34 @@ namespace DocumentLibrary.Data.Repositories
             return book.Id;
         }
         
+        public async Task UpdateBookAsync(BookEditDto bookEditDto, Genre genre)
+        {
+            Book book = await this.GetByIdAsync(bookEditDto.Id);
+
+            book.Name = bookEditDto.Name;
+            book.Genre = genre;
+            book.Description = bookEditDto.Description;
+
+            this.Update(book);
+        }
+
+        public void UpdateBookByAttach(BookEditDto bookEditDto, Genre genre)
+        {
+            var book = new Book
+            {
+                Id = bookEditDto.Id,
+                Name = bookEditDto.Name,
+                Genre = genre,
+                Description = bookEditDto.Description
+            };
+            
+            _context.Attach(book);
+            _context.Entry(book).Property(p => p.Name).IsModified = true;
+            _context.Entry(book).Property(p => p.Genre).IsModified = true;
+            _context.Entry(book).Property(p => p.Description).IsModified = true;
+        }
+
+        
         private IQueryable<BookListDto> FilterBooks(
             IQueryable<BookListDto> books, string search, DateTime? from, DateTime? to)
         {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DocumentLibrary.Data.Entities;
 using DocumentLibrary.Data.Repositories.Contracts;
@@ -41,6 +40,21 @@ namespace DocumentLibrary.Services
             await _bookRepository.SaveChangesAsync();
 
             return bookId;
+        }
+        
+        public async Task UpdateBookAsync(BookEditDto bookEditDto)
+        {
+            Genre genre = await _genreRepository.GetByIdAsync(bookEditDto.GenreId);
+
+            if (genre == null)
+            {
+                throw new Exception($"Genre with Id: {bookEditDto.GenreId} could not be found");
+            }
+            
+            //_bookRepository.UpdateBookByAttach(bookEditDto, genre);
+            await _bookRepository.UpdateBookAsync(bookEditDto, genre);
+
+            await _bookRepository.SaveChangesAsync();
         }
 
         public async Task DeleteBook(long bookId)

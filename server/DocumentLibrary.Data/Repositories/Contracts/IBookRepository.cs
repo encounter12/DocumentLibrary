@@ -11,6 +11,10 @@ namespace DocumentLibrary.Data.Repositories.Contracts
 
         long AddBook(BookPostDto bookPostDto, Genre genre);
 
+        Task UpdateBookAsync(BookEditDto bookEditDto, Genre genre);
+
+        void UpdateBookByAttach(BookEditDto bookEditDto, Genre genre);
+
         Task<BooksGridDto> GetBooksAsync(QueryFilterDto queryFilterDto);
         
         Task<BookDetailsDto> GetBookDetailsAsync(long bookId);
