@@ -14,6 +14,8 @@ namespace DocumentLibrary.Data.Entities
         
         public string Description { get; set; }
         
+        public DateTime PublicationDate { get; set; }
+        
         public string DownloadLink { get; set; }
         
         public virtual ICollection<Keyword> Keywords { get; set; }

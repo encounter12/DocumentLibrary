@@ -19,8 +19,8 @@ namespace DocumentLibrary.Services
             _genreRepository = genreRepository;
         }
         
-        public async Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage) 
-            => await _bookRepository.GetBooksAsync(pageNumber, itemsPerPage);
+        public async Task<BooksGridDto> GetBooksAsync(QueryFilterDto queryFilterDto) 
+            => await _bookRepository.GetBooksAsync(queryFilterDto);
         
         public async Task<BookDetailsDto> GetBookDetailsAsync(long bookId)
             => await _bookRepository.GetBookDetailsAsync(bookId);

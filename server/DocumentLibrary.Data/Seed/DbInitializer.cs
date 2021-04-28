@@ -113,6 +113,11 @@ namespace DocumentLibrary.Data.Seed
             {
                 Name = "Popular science"
             };
+            
+            var tragedy = new Genre
+            {
+                Name = "Tragedy"
+            };
 
             var books = new List<Book>
             {
@@ -128,6 +133,7 @@ namespace DocumentLibrary.Data.Seed
                         new Keyword { Name = "artificial intelligence" },
                         new Keyword { Name = "astronaut" }
                     },
+                    PublicationDate = new DateTime(1968, 8, 23),
                     BookCheckouts = new List<BookCheckout>
                     {
                         new BookCheckout
@@ -140,12 +146,14 @@ namespace DocumentLibrary.Data.Seed
                 new Book
                 {
                     Name = "Gone with the wind",
+                    Description = "One of the top fiction books of the 20th century",
                     Genre = fictionGenre,
                     Keywords = new List<Keyword>
                     {
                         new Keyword { Name = "crime" },
                         new Keyword { Name = "drama" }
-                    }
+                    },
+                    PublicationDate = new DateTime(1936, 6, 30)
                 },
                 new Book
                 {
@@ -156,7 +164,20 @@ namespace DocumentLibrary.Data.Seed
                         new Keyword { Name = "science" },
                         new Keyword { Name = "theoretical physics" },
                         new Keyword { Name = "quantum mechanics" }
-                    }
+                    },
+                    PublicationDate = new DateTime(1988, 7, 29)
+                },
+                new Book
+                {
+                    Name = "The Great Gatsby",
+                    Description = "The Great Gatsby provides a critical social history of Prohibition-era America during the Jazz Age",
+                    Genre = tragedy,
+                    Keywords = new List<Keyword>
+                    {
+                        new Keyword { Name = "tragedy" },
+                        new Keyword { Name = "jazz era" }
+                    },
+                    PublicationDate = new DateTime(1925, 11, 16)
                 }
             };
                     

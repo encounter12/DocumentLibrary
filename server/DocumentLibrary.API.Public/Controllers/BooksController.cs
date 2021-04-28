@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentLibrary.API.Public.ViewModels;
 using DocumentLibrary.DTO.DTOs;
-using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,41 +13,40 @@ namespace DocumentLibrary.API.Public.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        
-        private readonly IModelStateErrorHandler _modelStateErrorHandler;
 
-        private readonly IPageFilterValidator _pageFilterValidator;
-        
         private readonly IMapper _mapper;
 
-        public BooksController(
-            IBookService bookService,
-            IModelStateErrorHandler modelStateErrorHandler,
-            IPageFilterValidator pageFilterValidator,
-            IMapper mapper)
+        public BooksController(IBookService bookService, IMapper mapper)
         {
             _bookService = bookService;
-            _modelStateErrorHandler = modelStateErrorHandler;
-            _pageFilterValidator = pageFilterValidator;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetBooks(int pageNumber, int itemsPerPage)
+        public async Task<ActionResult> GetBooks(
+            int? pageNumber,
+            int? itemsPerPage,
+            string search,
+            DateTime? fromDate,
+            DateTime? toDate,
+            string sortOrder,
+            string sortBy
+        )
         {
             try
             {
-                int allRecordsCount = await _bookService.GetAllRecordsCountAsync();
-                
-                IEnumerable<string> validationErrors =
-                    _pageFilterValidator.Validate(pageNumber, itemsPerPage, allRecordsCount);
-
-                if (validationErrors.Any())
+                var queryFilterDto = new QueryFilterDto
                 {
-                    return BadRequest(validationErrors);
-                }
+                    PageNumber = pageNumber,
+                    ItemsPerPage = itemsPerPage,
+                    Search = search,
+                    FromDate = fromDate,
+                    ToDate = toDate,
+                    SortOrder = sortOrder,
+                    SortBy = sortBy
+                };
                 
-                BooksGridDto books = await _bookService.GetBooksAsync(pageNumber, itemsPerPage);
+                BooksGridDto books = await _bookService.GetBooksAsync(queryFilterDto);
                 var booksGridViewModel = _mapper.Map<BooksGridViewModel>(books);
                 
                 return Ok(booksGridViewModel);

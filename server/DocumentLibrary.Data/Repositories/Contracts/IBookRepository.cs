@@ -11,8 +11,8 @@ namespace DocumentLibrary.Data.Repositories.Contracts
 
         long AddBook(BookPostDto bookPostDto, Genre genre);
 
-        Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage);
-
+        Task<BooksGridDto> GetBooksAsync(QueryFilterDto queryFilterDto);
+        
         Task<BookDetailsDto> GetBookDetailsAsync(long bookId);
 
         Task<int> GetAllRecordsCountAsync();

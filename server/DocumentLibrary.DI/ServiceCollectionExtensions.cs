@@ -9,6 +9,8 @@ using DocumentLibrary.Infrastructure.AspNetHelpers;
 using DocumentLibrary.Infrastructure.AspNetHelpers.Contracts;
 using DocumentLibrary.Infrastructure.AspNetHelpers.UserService;
 using DocumentLibrary.Infrastructure.DateTimeHelpers;
+using DocumentLibrary.Infrastructure.Paging;
+using DocumentLibrary.Infrastructure.Sorting;
 using DocumentLibrary.Services;
 using DocumentLibrary.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,7 +48,8 @@ namespace DocumentLibrary.DI
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDateTimeHelper, DateTimeHelper>();
-            services.AddScoped<IPageFilterValidator, PageFilterValidator>();
+            services.AddScoped<IPagingService, PagingService>();
+            services.AddScoped<ISortingService, SortingService>();
         }
         
         private static void BindDbContexts(IServiceCollection services, AppData appData)

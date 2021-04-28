@@ -6,7 +6,7 @@ namespace DocumentLibrary.Services.Contracts
 {
     public interface IBookService
     {
-        Task<BooksGridDto> GetBooksAsync(int pageNumber, int itemsPerPage);
+        Task<BooksGridDto> GetBooksAsync(QueryFilterDto queryFilterDto);
 
         Task<BookDetailsDto> GetBookDetailsAsync(long bookId);
 

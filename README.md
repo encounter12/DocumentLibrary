@@ -7,11 +7,11 @@ Basic web application for management of book loaning must be implemented.
 
 Requirements:
 
-1.Administration UI – users with administrator rights should be able to upload or delete books (txt, docx, pdf, etc..). There should be an option to specify book genre, set of keywords and free text description at the time of upload. Uploaded documents should be stored in Azure storage.
-Books checked out by a user cannot be deleted. 
+1. Administration UI – users with administrator rights should be able to upload or delete books (txt, docx, pdf, etc..). There should be an option to specify book genre, set of keywords and free text description at the time of upload. Uploaded documents should be stored in Azure storage.
+Books checked out by a user cannot be deleted.
 
 2. Public Library UI – any user can access the list of all books stored in the library. For each book in the list the following information should be presented
-    - Name of the book(same as the file name)
+    - Name of the book (same as the file name)
     - Genre
     - Keywords
     - Description
@@ -25,8 +25,6 @@ Books checked out by a user cannot be deleted.
     - Genre
     - Keywords.
 
-Users should be able to download a book after the book is checked out.
-Books checked out by other users should be unavailable for download.
-Checkout period is 1 week. After this period books can be considered as available for checkout by other users.
+Users should be able to download a book after the book is checked out. Books checked out by other users should be unavailable for download. Checkout period is 1 week. After this period books can be considered as available for checkout by other users.
 
 NOTE: Data for added or deleted books should be immediately updated and search results should reflect those changes immediately.
