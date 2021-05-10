@@ -57,6 +57,7 @@ namespace DocumentLibrary.Data.Repositories
                     Id = b.Id,
                     Name = b.Name,
                     Genre = b.Genre.Name,
+                    PublicationDate = b.PublicationDate,
                     IsCheckedOut = b.BookCheckouts
                         .Select(bc => bc.AvailabilityDate)
                         .OrderByDescending(bcd => bcd)

@@ -62,18 +62,18 @@ namespace DocumentLibrary.Data.Seed
                 LastName = "Doe"
             };
 
-            string adminUserPassword = "Qwerty123";
+            string adminUserPassword = "qwerty123";
             
             var standardUser = new ApplicationUser
             {
-                UserName = "michael.jordan",
-                Email = "michael.jordan@gmail.com",
+                UserName = "ricard.roe",
+                Email = "ricard.roe@gmail.com",
                 EmailConfirmed = true,
-                FirstName = "Michael",
-                LastName = "Jordan"
+                FirstName = "Richard",
+                LastName = "Roe"
             };
-
-            string standardUserPassword = "Qwerty456";
+            
+            string standardUserPassword = "qwerty123";
 
             var optionsInstance = new IdentityOptions
             {
