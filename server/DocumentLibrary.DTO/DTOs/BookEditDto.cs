@@ -2,7 +2,7 @@ namespace DocumentLibrary.DTO.DTOs
 {
     public class BookEditDto
     {
-        public long Id { get; }
+        public long Id { get; set; }
         
         public string Name { get; set; }
         
